@@ -1,5 +1,4 @@
-# rogue-captive
-## A rogue captive portal for Raspberry Pi
+# A rogue captive portal for Raspberry Pi
 
 This is a simple website and set of configuration files that turns a Raspberry Pi Zero W (or other Pi with WiFi) into a rogue access point named "Google Free Wi-Fi." It spoofs a captive portal that looks like the Google Account login page, however authentication always fails and the credentials are logged to a text file.
 
