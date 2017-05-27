@@ -1,0 +1,14 @@
+#!/bin/bash
+
+service apache2 start
+hostapd -B /etc/hostapd/hostapd.conf
+sleep 2
+ifconfig br0 up
+ifconfig br0 10.1.1.1 netmask 255.255.255.0
+iptables --flush
+iptables -t nat --flush
+iptables -t nat -A PREROUTING -i br0 -p udp -m udp --dport 53 -j DNAT --to-destination 10$
+iptables -t nat -A PREROUTING -i br0 -p tcp -m tcp --dport 80 -j DNAT --to-destination 10$
+iptables -t nat -A PREROUTING -i br0 -p tcp -m tcp --dport 443 -j DNAT --to-destination 1$
+service dnsmasq start
+exit 0
