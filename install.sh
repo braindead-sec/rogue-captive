@@ -6,20 +6,22 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 echo "Installing dependencies..."
-apt-get install macchanger hostapd dnsmasq apache2 php5
+apt update
+apt -y install macchanger hostapd dnsmasq apache2 php
 
 echo "Configuring components..."
 cp -f hostapd.conf /etc/hostapd/
 cp -f dnsmasq.conf /etc/
-cp -Rf html /var/www/
+cp -rf html /var/www/
 chown -R www-data:www-data /var/www/html
 chown root:www-data /var/www/html/.htaccess
 cp -f rc.local /etc/
 cp -f override.conf /etc/apache2/conf-available/
-cd /etc/apache2/conf-enabled
-ln -s ../conf-available/override.conf override.conf
-cd /etc/apache2/mods-enabled
-ln -s ../mods-available/rewrite.load rewrite.load
+a2enconf override
+a2enmod rewrite
+
+echo "Deleting wireless network configuration..."
+sudo rm -rf /etc/wpa_supplicant/wpa_supplicant.conf
 
 echo "Rogue captive portal installed. Reboot to execute."
 exit 0
